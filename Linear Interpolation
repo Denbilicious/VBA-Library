@@ -1,0 +1,22 @@
+Function LinearInterp(XVals, YVals, TargetVal)
+    Dim MatchVal
+    On Error GoTo ErrXit
+    With Application.WorksheetFunction
+    MatchVal = .Match(TargetVal, XVals, 1)
+    If MatchVal = XVals.Cells.Count _
+            And RealEqual(TargetVal, .index(XVals, MatchVal)) Then
+        LinearInterp = .index(YVals, MatchVal)
+    Else
+        LinearInterp = .index(YVals, MatchVal) _
+            + (.index(YVals, MatchVal + 1) - .index(YVals, MatchVal)) _
+                / (.index(XVals, MatchVal + 1) _
+                    - .index(XVals, MatchVal)) _
+                * (TargetVal - .index(XVals, MatchVal))
+        End If
+        End With
+    Exit Function
+ErrXit:
+    With Err
+    LinearInterp = "Check formula"
+        End With
+    End Function
