@@ -1,3 +1,7 @@
+Function RealEqual(X, Y) As Boolean
+        RealEqual = Abs(X - Y) <= 0.00000001
+        End Function
+
 Function LinearInterp(XVals, YVals, TargetVal)
     Dim MatchVal
     On Error GoTo ErrXit
